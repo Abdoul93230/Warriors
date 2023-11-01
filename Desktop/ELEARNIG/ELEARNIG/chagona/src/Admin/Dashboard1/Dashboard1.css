@@ -1,0 +1,325 @@
+.Dashboard1{
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    margin-top: 5px;
+}
+.Dashboard1 .top{
+    width: 100%;
+    height: auto;
+   display: flex;
+   flex-direction: column; 
+   justify-content: flex-start;
+   align-items: flex-start !important;
+}
+
+
+
+.Dashboard1 .top .ul1{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+.Dashboard1 .top .ul1 .un h2{
+    color: #bec6d3;
+}
+.Dashboard1 .top .ul1 .un h4{
+    color: #bec6d3cc !important;
+}
+
+.Dashboard1 .top .ul1 .un h4{
+    color: #212224;
+}
+
+.Dashboard1 .top .ul1 .deux{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    background-color: #ff6969;
+    color: #212224;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.Dashboard1 .top .ul2{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Dashboard1 .top .ul2 li{
+    width: 20%;
+    background-color: #162642d7;
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+    margin: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px #162642d7;
+}
+
+.Dashboard1 .top .ul2 li h3,h5{
+    color: #bec6d3;
+}
+.Dashboard1 .top .ul2 li h4{
+    color: white;
+}
+
+.Dashboard1 .top .ul2 li .deux .contenaire{
+    /* border: 1px solid crimson; */
+    width: 58px;
+    height: 58px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.Dashboard1 .midel{
+    /* border: 2px solid crimson; */
+    display: flex;
+    width: 100%;
+    height: auto;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 10px;
+    padding: 2px;
+}
+
+.Dashboard1 .midel .gauche{
+    width: 66%;
+    padding: 5px;
+    height: auto;
+    /* border: 2px solid crimson; */
+    
+}
+.Dashboard1 .midel .gauche .gh{
+    width: 100%;
+    height: 400px;
+    box-shadow: 0px 0px 8px #212224;
+}
+
+.Dashboard1 .midel .droite{
+    /* border: 2px solid crimson; */
+    padding: 5px;
+    width: 31%;
+    
+}
+
+.Dashboard1 .midel .droite .un{
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 0px 8px #212224;
+}
+.Dashboard1 .midel .droite .un h2{
+    text-align: left;
+    color: #bec6d3;
+    padding: 8px;
+    font-size: 17px;
+    box-shadow: 0px 0px 8px #212224;
+}
+
+.Dashboard1 .midel .droite .un ul{
+    width: 100%;
+    height: 300px;
+    overflow-y: auto;
+    list-style-type: none;
+    padding: 10px;
+}
+
+.Dashboard1 .midel .droite .un ul li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    box-shadow: 0px 0px 8px #212224;
+    margin: 8px auto;
+    border-radius: 5px;
+    cursor: pointer; transition: all .8s;
+}
+
+.Dashboard1 .midel .droite .un ul li:hover{
+    transition: all .8s;
+    transform: scale(1.02);
+}
+
+
+.Dashboard1 .midel .droite .un ul li section h5{
+    color: #ff6969;
+    text-align: left;
+    margin: 5px 0px;
+}
+.Dashboard1 .midel .droite .un ul li section h6{
+    color: #bec6d3;
+}
+
+.Dashboard1 .midel .droite .un ul li section .span{
+    padding: 5px;
+    background-color: #ff6969;
+    color: #f7f8fa;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.Dashboard1 .midel .droite .un ul li section p{
+    color: #bec6d3;
+}
+.Dashboard1 .midel .gauche .bas{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.Dashboard1 .midel .gauche .bas .un{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 8px #212224;
+}
+.Dashboard1 .midel .gauche .bas .un h5{
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+    color: #bec6d3;
+}
+
+.Dashboard1 .midel .gauche .bas .un .graph{
+    width: 150px;
+    height: 150px;
+}
+.Dashboard1 .midel .gauche .bas .un h3{
+    color: #ff6969;
+    margin: 5px 0px;
+    font-size: 12px;
+}
+.Dashboard1 .midel .gauche .bas .un h4{
+    color: #bec6d3;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.Dashboard1 .midel .gauche .bas .deux{
+    width: 53%;
+    height: 250px;
+    padding: 10px;
+    box-shadow: 0px 0px 8px #212224;
+    margin-bottom: 10px;
+}
+.Dashboard1 .midel .gauche .bas .deux h3{
+    color: #bec6d3;
+    margin-bottom:7px ;
+}
+
+
+.Dashboard1 .midel .droite .deux{
+    margin-top: 20px;
+    box-shadow: 0px 0px 8px #212224;
+}
+
+.Dashboard1 .midel .droite .deux h4{
+    color: #bec6d3;
+    margin: 5px;
+}
+
+
+.Dashboard1 .midel .droite .deux img{
+    width: 100%;
+    
+}
+
+@media screen and (max-width:1220px) {
+    .Dashboard1 .midel .droite .deux img{
+        height: 280px;
+    }
+
+    .Dashboard1 .midel .gauche .bas{
+        flex-direction: column;
+    }
+    .Dashboard1 .midel .gauche .bas .un{
+        width: 100%;
+    }
+    .Dashboard1 .midel .gauche .bas .deux{
+        width: 100%;
+        margin-top: 7px;
+    }
+    .Dashboard1 .midel .droite{
+        width: 35%;
+    }
+    .Dashboard1 .midel .gauche{
+        width: 63%;
+    }
+    .Dashboard1 .top .ul2 li{
+        width: 23%;
+        margin: 10px;
+    }
+}
+
+@media screen and (max-width:800px){
+    .Dashboard1 .midel{
+        flex-direction: column;
+    }
+    .Dashboard1 .midel .droite{
+        width: 100%;
+    }
+    .Dashboard1 .midel .gauche{
+        width: 100%;
+    }
+    .Dashboard1 .midel .droite .deux img{
+        height: auto;
+    }
+
+    .Dashboard1 .top .ul2{
+        flex-wrap: wrap;
+    }
+    .Dashboard1 .top .ul2 li{
+        width: 30%;
+    }
+    
+}
+@media screen and (max-width:600px){
+    .Dashboard1 .top .ul2 li{
+        width: 40%;
+    }
+}
+@media screen and (max-width:500px){
+    .Dashboard1 .top .ul2 li{
+        width: 45%;
+        margin: 10px 5px;
+    }
+}
+@media screen and (max-width:430px){
+    .Dashboard1 .top{
+        display: flex;
+        flex-direction: column !important;
+    }
+    .Dashboard1 .top .ul2 li{
+        width: 46%;
+        margin: 10px 2px;
+    }
+    .Dashboard1 .top .ul1 .un h2{
+        font-size: 13px;
+    }
+    .Dashboard1 .top .ul1 .un h4{
+        font-size: 12px;
+    }
+    .Dashboard1 .top .ul1 .deux{
+        font-size: 10px;
+        padding: 3px;
+    }
+}

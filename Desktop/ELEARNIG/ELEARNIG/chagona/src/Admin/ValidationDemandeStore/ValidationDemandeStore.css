@@ -1,0 +1,70 @@
+.ValidationDemandeStore{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.ValidationDemandeStore .carde{
+    width: 320px;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px #515C6F;
+}
+.ValidationDemandeStore .carde span{
+    
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: white;
+    color: #FF6969;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.ValidationDemandeStore .carde h2{
+    color: #515C6F;
+    font-weight: lighter;
+    font-size: 30px;
+    text-align: center;
+    margin: 10px auto;
+    text-transform: capitalize;
+}
+
+.ValidationDemandeStore .carde p{
+    color: #515C6F;
+    text-align: center;
+}
+
+
+.ValidationDemandeStore .carde button{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    margin-top: 100px;
+    padding: 7px 10px;
+    background-color: #FF6969;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding-left: 15%;
+}
+
+.ValidationDemandeStore .carde button span{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin: auto 0px;
+    
+}

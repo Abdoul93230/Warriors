@@ -1,0 +1,185 @@
+.AdminAddProduct{
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+    padding: 8px;
+    font-family: serif;
+}
+.AdminAddProduct .top{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+.AdminAddProduct .top h2{
+    color: #bec6d3;
+}
+.AdminAddProduct .bottom{
+    width: 100%;
+    height: auto;
+}
+
+.AdminAddProduct .bottom form{
+    width: 100%;
+    height: auto;
+    color: #bec6d3;
+}
+
+.AdminAddProduct .bottom form .Fgroup{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+}
+.AdminAddProduct .bottom form label{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    /* border: 1px solid black; */
+    color: #bec6d3;
+    font-weight: bold;
+    font-size: 17px;
+    margin-top: 10px;
+    box-shadow: 0px 0px 8px #212224;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.AdminAddProduct .bottom form label select{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    outline: none;
+    background-color: transparent;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: #212224;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.AdminAddProduct .bottom form .Fgroup label{
+    text-transform: capitalize;
+    width: 47%;
+    color: #bec6d3;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.AdminAddProduct .bottom form .Fgroup label input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    outline: none;
+    background-color: transparent;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+    
+}
+.AdminAddProduct .bottom form .Fgroup label .conte{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+.AdminAddProduct .bottom form .Fgroup label .conte input{
+    width: 70px;
+    padding: 5px;
+}
+
+.AdminAddProduct .bottom form label textarea{
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-top: 5px;
+    outline: none;
+    background-color: transparent;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+}
+
+.AdminAddProduct .bottom form label .edit{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    outline: none;
+    background-color: transparent;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+    color: white;
+}
+
+.AdminAddProduct .bottom form label input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    outline: none;
+    background-color: transparent;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+    color: white;
+}
+.AdminAddProduct .bottom form input[type="submit"]{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    margin-top: 15px;
+    outline: none;
+    background-color: #ff6969;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+@media screen and (max-width:750px) {
+    .AdminAddProduct .bottom form .Fgroup label{
+        width: 49%;
+    }
+}
+@media screen and (max-width:685px) {
+    .AdminAddProduct .bottom form .Fgroup{
+        flex-direction: column;
+    }
+    .AdminAddProduct .bottom form .Fgroup label{
+        width: 100%;
+        /* margin: 8px auto; */
+    }
+}
+@media screen and (max-width:400px) {
+    .AdminAddProduct .top h2{
+        width: 100%;
+    }
+   
+    .AdminAddProduct .bottom form .Fgroup label .conte input{
+        width: 60px;
+        padding: 3px 1px;
+        margin: 5px 2px;
+    }
+    .AdminAddProduct .bottom form .Fgroup label .conte{
+        flex-wrap: wrap;
+    }
+}

@@ -1,0 +1,180 @@
+.AdminStoreProducts{
+    margin-top: 20px;
+    width: 100%;
+    height: auto;
+    font-family: serif;
+}
+.AdminStoreProducts h2{
+    text-align: left;
+    color: #bec6d3;
+}
+
+
+.AdminStoreProducts .contePop{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #bec6d370;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.AdminStoreProducts .contePop .popop h3{
+    width: 100%;
+    height: auto;
+    padding: 8px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ff6969;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.AdminStoreProducts .contePop .popop{
+    background-color: #162642;
+    box-shadow: 0px 0px 10px #212224;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    /* margin: 100px auto; */
+}
+
+.AdminStoreProducts .contePop .popop p{
+    color: #fff;
+    text-align: center;
+
+}
+
+.AdminStoreProducts .contePop .popop img{
+    width: 95%;
+    height: 150px;
+    margin-top: 8px auto;
+}
+.AdminStoreProducts .contePop .popop .choix{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+}
+.AdminStoreProducts .contePop .popop .choix button{
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    color: #fff;
+}
+.AdminStoreProducts .contePop .popop .choix button:first-child{
+    background-color: blue;
+}
+.AdminStoreProducts .contePop .popop .choix button:last-child{
+    background-color: #ff6969;
+}
+
+.AdminStoreProducts .conteCarde{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+
+.AdminStoreProducts .conteCarde .carde{
+    width: 43%;
+    height: auto;
+    /* border: 2px solid black; */
+    box-shadow: 0px 0px 8px #bec6d3;
+    border-radius: 5px;
+    margin: 10px;
+    position: relative;
+}
+.AdminStoreProducts .conteCarde .carde img{
+    width: 100%;    
+    border-radius: 5px;
+    height: 120px;
+}
+.AdminStoreProducts .conteCarde .carde h4,h5,h6,p{
+    margin-left: 5px;
+    color: #bec6d3;
+    margin-bottom: 5px;
+}
+.AdminStoreProducts .conteCarde .carde span{
+    position: absolute;
+    bottom: 3px;
+    right: 3px;
+    cursor: pointer;
+    color: #ff6969;
+}
+
+
+
+
+
+
+.AdminStoreProducts .pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  
+  .AdminStoreProducts .pagination li {
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #eaeaea;
+  }
+  
+  .AdminStoreProducts .pagination li.active {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .AdminStoreProducts .pagination li:hover {
+    background-color: #ccc;
+  }
+  
+  .AdminStoreProducts .pagination li.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+
+
+  @media screen and (min-width:450px) {
+    .AdminStoreProducts .conteCarde .carde{
+        width: 30%;
+        margin: 10px 4px;
+    }
+  }
+  @media screen and (min-width:770px) {
+    .AdminStoreProducts .conteCarde .carde{
+        width: 25%;
+        margin: 10px;
+    }
+  }
+  @media screen and (min-width:830px) {
+    .AdminStoreProducts .conteCarde .carde{
+        width: 20%;
+        margin: 10px;
+    }
+  }
+  @media screen and (min-width:1200px) {
+    .AdminStoreProducts .conteCarde .carde{
+        width: 18%;
+        margin: 10px 5px;
+    }
+  }

@@ -1,0 +1,894 @@
+.Store{
+    width: 100%;
+    height: auto;
+    padding: 5px 8px;
+    background-color: #fff;
+    font-family: serif;
+    position: relative !important;
+}
+
+.Store .top{
+    padding-bottom: 8px;
+    border-bottom: 1px solid #515c6f28;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    padding: 5px 8px;
+    padding-top: 5px;
+    width: 100%;
+    height: auto;
+    z-index: 100;
+    background-color: white;
+
+}
+
+.Store .top ul{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #515C6F;
+    list-style-type: none;
+    width: 100%;
+}
+.Store .top ul .plu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 5px;
+    color: #515C6F;
+    cursor: pointer;
+}
+
+
+
+.Store .top ul .plu span{
+    font-weight: bolder;
+    font-size: 30px;
+    margin-top: -28px;
+}
+
+.Store .top ul .s{
+    width: 68%;
+}
+.Store .top ul .s form {
+    width: 100%;
+    height: auto;
+    position: relative;
+}
+.Store .top ul .s form input{
+    width: 100%;
+    height: auto;
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 30px;
+    outline: none;
+    border: none;
+    background-color: #515c6f2a;
+}
+
+.Store .top ul .s form .search{
+    position: absolute;
+    top: 10%;
+    right: 5px;
+    background-color: #515C6F;
+    padding: 2.5px 10px;
+    color: white;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Store .midel{
+    width: 100%;
+    height: auto;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #515c6f28;
+    margin-top: 50px;
+    
+}
+.Store .midel ul{
+    width: 100%;
+    height: auto;
+    display: flex;
+    list-style-type: none;
+    justify-content: space-between;
+    align-items: center;
+    padding-top:8px ;
+}
+.Store .midel ul li:nth-child(1){
+    width: 50px;
+    height: 50px;
+    border: 1px solid #515c6f5d;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+.Store .midel ul li:nth-child(2){
+    margin-left: -12%;
+}
+.Store .midel ul li:nth-child(2) p{
+    margin-top: 5px;
+    color: #515C6F;
+    font-weight: lighter;
+}
+.Store .midel ul li:nth-child(2) h4{
+    color: #515C6F;
+}
+.Store .midel ul li:nth-child(3) button{
+    padding: 8px 15px;
+    border: none;
+    color: white;
+    background-color: #FF6969;
+    border-radius: 18px;
+    font-family: sans-serif;
+    font-weight: bolder;
+}
+
+.Store .midel .reviews{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #515c6f44;
+    border-radius: 10px;
+    margin-top: 7px;
+    padding: 0px 8px;
+    font-family: serif;
+    cursor: pointer;
+}
+.Store .midel .reviews span .i{
+    width: 18px;
+    height: 17px;
+    margin-left: 8px;
+}
+.Store .midel .reviews span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Store .midel2{
+    width: 100%;
+    margin-top: 8px;
+}
+.Store .midel2 ul{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style-type: none;
+    border-bottom: 1px solid #515c6f28;
+}
+
+.Store .midel2 ul li{
+    margin: 0px 8px;
+    padding: 9px 0px;
+    cursor: pointer;
+}
+
+.Store .midel2 ul .style{
+    border-bottom: 3px solid #515C6F;
+    padding-bottom:6px ;
+}
+
+.Store .body{
+    width: 100%;
+    height: auto;
+    margin-bottom: 50px;
+}
+.Store .body .top{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    border: none;
+    position: relative;
+    z-index: 0;
+}
+.Store .body .top ul{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.Store .body .top ul li{
+    margin: 10px;
+    cursor: pointer;
+}
+.Store .body .top ul .style2{
+    color: #FF6969;
+}
+.Store .body .top span{
+    color: #515C6F;
+    background-color: #515c6f17;
+    padding: 6px 8px;
+    border-radius: 18px;
+    margin-left: 10px;
+    font-size: 13px;
+}
+
+.Store .body .conteCarde{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.Store .body .conteCarde .carde{
+    width: 47%;
+    color: #515C6F;
+    cursor: pointer;
+    position: relative;
+    margin: 10px 2px;
+    transition: all .5s;
+    /* border: 2px solid crimson; */
+} 
+.Store .body .conteCarde .carde:hover{
+    transition: all .5s;
+    transform: scale(1.01);
+    box-shadow: 0px 0px 5px #515C6F;
+    border-radius: 10px;
+}
+
+.Store .body .conteCarde .carde .like{
+    position: absolute;
+    top: 165px;
+    right: 0px;
+    color: #515C6F;
+    transition: all .5s;
+}
+
+.Store .body .conteCarde .carde .likee{
+    transition: all .5s;
+    transform: scale(1.2);
+    color: #FF6969;
+    top: 165px;
+    right: 4px;
+}
+
+
+.Store .body .conteCarde .carde img{
+    width: 100%;
+    height: 160px;
+    border-radius: 10px;
+}
+.Store .body .conteCarde .carde h4{
+    font-size: 11px;
+    margin-left: 3px;
+}
+.Store .body .conteCarde .carde h5{
+    margin-left: 3px;
+}
+.Store .body .conteCarde .carde h4 span{
+    font-size: 23px;
+}
+
+.Store .body .conteCarde .carde h6{
+ margin-top: 5px;
+ margin-left: 3px;
+}
+.Store .body .conteCarde .carde h3{
+    font-size: 13px;
+    margin-top: 5px;
+    margin-left: 3px;
+}
+.Store .body .conteCarde .carde h2{
+    color: #FF6969;
+    font-size: 12px;
+    margin-left: 3px;
+}
+
+.Store .nav{
+    width: 100%;
+    height: auto;
+    /* position: relative !important; */
+}
+.Store .nav ul{
+    display: flex;
+    justify-content: space-between;
+    /* border: 2px solid crimson; */
+    align-items: center;
+    list-style-type: none;
+    background-color: #fff;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    padding: 8px 15px;
+
+}
+.Store .nav ul li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    color: #515C6F;
+}
+
+.Store .Categories{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 101;
+    background: white;
+    height: 100vh;
+    display: none;
+    
+}
+
+.Store .Categories ul{
+    width: 90%;
+    height: auto;
+    
+}
+
+.Store .Categories ul li{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin: 15px 10px;
+    position: relative;
+    z-index: 100;
+    cursor: pointer;
+    background-color: #515c6f8a;
+    padding: 5px;
+    transition: all .8s;
+}
+
+.Store .Categories ul li:hover{
+    transition: all .8s;
+    color: #fff;
+}
+
+.Store .Categories ul li:before{
+    position: absolute;
+    content: "";
+    background-color: #FF6969;
+    top: 0px;
+    left: 0px;
+    width: 3px;
+    height: 100%;
+    transition: all .8s;
+    z-index: -2;
+}
+
+
+.Store .Categories ul li:hover:before{
+    transition: all .8s;
+    width: 100%;
+    
+}
+
+
+.Store .show{
+    width: 45%;
+    display: block !important;
+}
+
+.Store .show .Top{
+width: 100%;
+height: auto;
+display: flex;
+align-items: center;
+justify-content: flex-end;
+padding: 10px;
+}
+
+.Store .show  .i{
+    color: #FF6969;
+    cursor: pointer;
+}
+
+.Store .new_arrival{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 55px;
+}
+
+.Store .new_arrival .carde{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    margin: 6px auto;
+
+}
+.Store .new_arrival .carde img{
+    width: 42%;
+    height: 150px;
+    border-radius: 10px;
+    transition: all .5s;
+}
+.Store .new_arrival .carde img:hover{
+    transition: all .5s;
+    transform: scale(1.02);
+}
+.Store .new_arrival .carde .det{
+    margin-left: 8px;
+}
+.Store .new_arrival .carde .det h6{
+    font-size: 13px;
+    color: #515C6F;
+}
+
+.Store .new_arrival .carde .det h4{
+    font-size: 11px;
+}
+
+.Store .new_arrival .carde .det h4 span{
+    font-size: 23px;
+    color: #515C6F;
+}
+
+.Store .new_arrival .carde .det h5{
+    margin-top: 5px;
+    color: #515C6F;
+}
+.Store .new_arrival .carde .det h3{
+    color: #515C6F;
+    font-size: 15.5px;
+    margin-top: 7px;
+}
+.Store .new_arrival h2{
+    color: #515C6F;
+    margin: 7px 0px;
+}
+
+.Store .new_arrival h3{
+    color: #515C6F;
+    margin: 6px 0px;
+}
+
+.Store .new_arrival .contCardePromo{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5px;
+}
+.Store .new_arrival .contCardePromo .carde{
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    position: relative;
+    transition: all .5s;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.Store .new_arrival .contCardePromo .carde:hover{
+    transition: all .5s;
+    transform: scale(1.01);
+    box-shadow: 0px 0px 5px #515C6F;
+}
+
+.Store .new_arrival .contCardePromo .carde img{
+    width: 100%;
+    height: auto;
+}
+.Store .new_arrival .contCardePromo .carde h3{
+    font-size: 10px;
+    color: #FF6969;
+    margin-left: 2px;
+}
+.Store .new_arrival .contCardePromo .carde h3 span{
+    font-size: 18px;
+}
+
+.Store .new_arrival .contCardePromo .carde h4{
+    font-size: 11px;
+    text-decoration: line-through;
+    margin-bottom: 3px;
+    margin-left: 2px;
+}
+
+.Store .new_arrival .contCardePromo .carde .promo{
+    position: absolute;
+    background-color: #FF6969;
+    top: 0px;
+    left: 0px;
+    color: #fff;
+    border-top-left-radius:10px ;
+    border-bottom-right-radius:10px ;
+    padding: 2px;
+}
+
+
+
+.Store .home .carousel-container{
+    height: 250px;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px #515C6F;
+}
+.Store .home .carousel-container .slide{
+    width: 100%;
+    height: 250px;
+    position: relative;
+    
+}
+.Store .home .carousel-container .slide img{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+.Store .home .carousel-container .slide .button{
+    position: absolute;
+    bottom: 5%;
+    left: 2%;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 9px;
+    border-radius: 20px;
+}
+.Store .home .carousel-container .slide .button span{
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FF6969;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #fff;
+    margin-left: 8px;
+}
+.Store .home .carousel-container .slide .button h6{
+    font-size: 15px;
+}
+
+
+.Store .home .reduct{
+    width: 100%;
+    background-color: #ff69691e;
+    margin-top: 15px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-radius: 10px;
+}
+
+.Store .home .reduct .left h2{
+    font-size: 20px;
+    color: #515C6F;
+    margin-bottom: 5px;
+}
+.Store .home .reduct .left p{
+    font-size: 14px;
+    color: #515C6F;
+}
+
+.Store .home .reduct .right{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.Store .home .reduct .right span{
+    background-color: #fff;
+    padding: 2px 7px;
+    border: 0.5px solid;
+    border-style:dashed;
+    margin-bottom: 5px;
+}
+
+.Store .home .reduct .right button{
+    color: white;
+    padding: 6px 15px;
+    background-color: #FF6969;
+    cursor: pointer;
+    border: none;
+    margin-top: 10px;
+    margin-right: 5px;
+    border-radius: 12px;
+}
+/* ///////////////////////////////////////////////////// */
+.Store .home .hot_deals{
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    background-color: #ff696931;
+    padding: 9px;
+    margin-top: 8px;
+}
+
+.Store .home .hot_deals h2{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    color: #515C6F;
+    cursor: pointer;
+    width: 125px;
+    padding: 3px 10px;
+    position: relative;
+}
+
+.Store .home .hot_deals h2:before{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 1.5px;
+    width: 75%;
+    content: " ";
+    background-color: #FF6969;
+}
+.Store .home .hot_deals h2:after{
+    position: absolute;
+    bottom: 0px;
+    right: 15px;
+    height: 2px;
+    width: 75%;
+    content: " ";
+    background-color: #FF6969;
+}
+
+.Store .home .hot_deals .contCarde{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.Store .home .hot_deals .contCarde .carde{
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 4px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.Store .home .hot_deals .contCarde .carde img{
+    width: 100%;
+    height: 90px;
+    border-radius: 7px;
+}
+
+.Store .home .hot_deals .contCarde .carde h3{
+    color: #515C6F;
+    font-size: 11px;
+}
+
+.Store .home .hot_deals .contCarde .carde h3 span{
+    font-size: 18px;
+}
+
+.Store .home .hot_deals .contCarde .carde h4{
+    font-size: 12px;
+    color: #515C6F;
+    margin-bottom: 4px;
+}
+
+.Store .home .hot_deals .contCarde .carde .s{
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background-color: #FF6969;
+    color: white;
+    padding: 2px 10px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+/* //////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////////////////////////// */
+.Store .home .new_arrivals{
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    background-color: #ff696931;
+    padding: 9px;
+    margin-top: 8px;
+}
+
+.Store .home .new_arrivals h2{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    color: #515C6F;
+    cursor: pointer;
+    width: 155px;
+    padding: 3px 10px;
+    position: relative;
+}
+
+.Store .home .new_arrivals h2:before{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 1.5px;
+    width: 75%;
+    content: " ";
+    background-color: #FF6969;
+}
+.Store .home .new_arrivals h2:after{
+    position: absolute;
+    bottom: 0px;
+    right: 20px;
+    height: 2px;
+    width: 75%;
+    content: " ";
+    background-color: #FF6969;
+}
+
+.Store .home .new_arrivals .contCarde{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.Store .home .new_arrivals .contCarde .carde{
+    display: flex;
+    width: 32%;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 4px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.Store .home .new_arrivals .contCarde .carde img{
+    width: 100%;
+    height: 100px;
+    border-radius: 7px;
+}
+
+.Store .home .new_arrivals .contCarde .carde h3{
+    color: #515C6F;
+    font-size: 11px;
+}
+
+.Store .home .new_arrivals .contCarde .carde h3 span{
+    font-size: 18px;
+}
+
+
+/* //////////////////////////////////////////////////////////////////////// */
+.Store .home .prod{
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 0px 10px #515c6f36;
+    padding: 8px;
+    margin-bottom: 60px;
+}
+
+.Store .home .prod h2{
+    color: #515C6F;
+    font-size: 17px;
+    margin-bottom: 10px;
+}
+
+.Store .home .prod .contCarde{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.Store .home .prod .contCarde .carde{
+    width: 49%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 3px;
+}
+.Store .home .prod .contCarde .carde img{
+    width: 100%;
+    border-radius: 10px;
+}
+
+
+
+.Store .home .prod .contCarde .carde h3{
+    color: #515C6F;
+    font-size: 11px;
+}
+
+.Store .home .prod .contCarde .carde h3 span{
+    font-size: 23px;
+}
+
+.Store .home .prod .contCarde .carde h4{
+    font-size: 12px;
+    color: #515C6F;
+    margin-bottom: 4px;
+}
+
+.Store .home .prod .contCarde .carde p{
+    color: #515C6F;
+    font-size: 12px;
+}
+
+
+
+@media screen and (min-width:630px) {
+    .Store .home .prod .contCarde .carde{
+        width: 30%;       
+    }
+
+    .Store .home .new_arrivals .contCarde .carde{
+        width: 25%;
+        
+    }
+    .Store .new_arrival .contCardePromo .carde{
+        width: 25%;
+    }
+    .Store .home .hot_deals .contCarde .carde{
+        width: 26%;
+        
+    }
+    .Store .body .conteCarde .carde{
+        width: 32%;
+    }
+}
+@media screen and (min-width:750px) {
+    .Store .home .prod .contCarde .carde{
+        width: 20%;  
+        margin: 10px 10px;     
+    }
+
+    .Store .body .conteCarde .carde{
+        width: 30%;
+    }
+
+    .Store .home .new_arrivals .contCarde .carde{
+        width: 25%;
+        
+    }
+    .Store .home .hot_deals .contCarde .carde{
+        width: 26%;
+        
+    }
+}
+@media screen and (min-width:800px) {
+    .Store{
+        width: 800px;
+        margin: 0px auto;
+    }
+    .Store .home .prod .contCarde .carde{
+        width: 20%;  
+        margin: 10px 10px;     
+    }
+
+    .Store .home .new_arrivals .contCarde .carde{
+        width: 25%;
+        
+    }
+    .Store .home .hot_deals .contCarde .carde{
+        width: 26%;
+        
+    }
+}

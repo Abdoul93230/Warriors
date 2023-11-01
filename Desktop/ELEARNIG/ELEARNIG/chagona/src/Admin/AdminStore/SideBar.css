@@ -1,0 +1,130 @@
+.SideBar{
+    width: 200px;
+    height: 100vh ;
+    background-color: #162642d7;
+    position: fixed;
+}
+.SideBar .top h1{
+    color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 24px;
+}
+
+.SideBar .top img{
+    width: 120px;
+    height: 120px;
+    display: block;
+    border-radius: 50%;
+    margin: 8px auto;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.SideBar .top h4{
+    color: white;
+    text-align: center;
+}
+.SideBar .top h5{
+    color: #FF6969;
+    text-align: center;
+}
+
+.SideBar .top h6{
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    margin-left: 20px;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.SideBar .top h6:hover{
+    transition: all .5s;
+    color: #FF6969;
+}
+
+.SideBar .top h6 .i{
+    margin-right: 15px;
+    width: 20px;
+    height: 20px;
+}
+
+.SideBar .bottom{
+    width: 100%;
+    height: auto;
+    color: #bec6d3;
+}
+
+.SideBar .bottom h5{
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.SideBar .bottom ul{
+    width: 100%;
+    height: auto;
+    list-style: none;
+}
+
+.SideBar .bottom ul li{
+    display: flex;
+    margin: 8px 10px;
+    align-items: center;
+    margin-left: 15px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all .8s;
+    position: relative;
+    padding: 3px 5px;
+    z-index: 1;
+    font-size: 14px;
+}
+
+.SideBar .bottom ul li:before{
+    position: absolute;
+    transition: all .8s;
+    width: 4px;
+    height: 100%;
+    content: "";
+    background-color: #ff6969a2;
+    top: 0px;
+    left: 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+
+}
+
+.SideBar .bottom ul li:hover:before{
+    transition: all .8s;
+    width: 100%;
+    z-index: -1;
+
+}
+
+
+.SideBar .bottom ul li .i{
+    margin-right: 8px;
+    width: 20px;
+    height: 20px;
+}
+
+.SideBar .btn{
+    /* align-items: center;
+    position: absolute;
+    bottom: 0px;
+    left: 0%; */
+    display: flex;
+    justify-content: space-between;
+    display: none;
+}
+.SideBar .btn button{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}

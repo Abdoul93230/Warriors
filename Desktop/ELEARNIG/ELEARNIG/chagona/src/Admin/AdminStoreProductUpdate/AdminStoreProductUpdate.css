@@ -1,0 +1,392 @@
+.AdminStoreProductUpdate{
+    margin-top: 20px;
+    color: #afb3bb;
+    font-family: serif;
+}
+
+.AdminStoreProductUpdate .midele{
+    width: 100%;
+    height: auto;
+    /* border: 2px solid crimson; */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
+.AdminStoreProductUpdate .midele .left{
+    width: 30%;
+    height: auto;
+    padding: 5px;
+    /* border: 2px solid crimson; */
+}
+.AdminStoreProductUpdate .midele .right{
+    width: 68%;
+    height: auto;
+    padding: 5px;
+    /* border: 2px solid crimson; */
+    background-color: transparent;
+}
+
+.AdminStoreProductUpdate .midele .left .top{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.AdminStoreProductUpdate .midele .left .top .un{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 30%;
+    
+}
+.AdminStoreProductUpdate .midele .left .top .deux{
+    width: 68%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.AdminStoreProductUpdate .midele .left .top .deux img{
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #afb3bb;
+    cursor: pointer;
+}
+
+.AdminStoreProductUpdate .midele .left .top .un .col{
+    width: 100%;
+    height: 50px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #afb3bb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    background-color: white;
+}
+
+
+.AdminStoreProductUpdate .midele .left .top .un .col .del{
+    position: absolute;
+    top: 0px;
+    right: 2px;
+    width: 15px;
+    color: #ff6969;
+    background-color: #afb3bb2d;
+    cursor: pointer;
+}
+.AdminStoreProductUpdate .midele .left .top .un .col .M{
+    position: absolute;
+    top: 0px;
+    left: 2px;
+    color: #ff6969;
+    width: 15px;
+    cursor: pointer;
+    background-color: #afb3bb2d;
+}
+
+.AdminStoreProductUpdate .midele .left .top .un .col img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    /* object-fit: contain; */
+}
+
+.AdminStoreProductUpdate .midele .left .top .un .col .i{
+    color: #ff6969;
+    cursor: pointer;
+    width: 50%;
+    height: 50%;
+}
+
+
+
+
+.AdminStoreProductUpdate .midele .left .color{
+    width: 100%;
+    padding: 5px;
+    /* border: 2px solid crimson; */
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    box-shadow: 0px 0px 8px #afb3bb;
+    margin-top: 15px;
+}
+
+.AdminStoreProductUpdate .midele .left .color .col{
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #afb3bb;
+    margin: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.AdminStoreProductUpdate .midele .left .color .col .del{
+    position: absolute;
+    top: 0px;
+    right: 2px;
+    width: 15px;
+    color: #ff6969;
+    background-color: #afb3bb2d;
+    cursor: pointer;
+}
+.AdminStoreProductUpdate .midele .left .color .col .M{
+    position: absolute;
+    top: 0px;
+    left: 2px;
+    width: 15px;
+    color: #ff6969;
+    cursor: pointer;
+    background-color: #afb3bb2d;
+}
+
+.AdminStoreProductUpdate .midele .left .color .col img{
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    /* object-fit: contain; */
+}
+
+.AdminStoreProductUpdate .midele .left .color .col .i{
+    color: #ff6969;
+    cursor: pointer;
+    width: 50%;
+    height: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.AdminStoreProductUpdate .right form{
+    width: 100%;
+    height: auto;
+    color: #afb3bb;
+}
+
+.AdminStoreProductUpdate .right form .Fgroup{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px;
+}
+.AdminStoreProductUpdate .right form label{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    /* border: 1px solid black; */
+    color: #bec6d3;
+    font-weight: bold;
+    font-size: 17px;
+    margin-top: 10px;
+    box-shadow: 0px 0px 8px #212224;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.AdminStoreProductUpdate .right form label select{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    outline: none;
+    background-color: transparent;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: #212224;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.AdminStoreProductUpdate .right form .Fgroup label{
+    text-transform: capitalize;
+    width: 47%;
+    color: #bec6d3;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.AdminStoreProductUpdate .right form .Fgroup label input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    outline: none;
+    background-color: transparent;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+    
+}
+.AdminStoreProductUpdate .right form .Fgroup label .conte{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+}
+.AdminStoreProductUpdate .right form .Fgroup label .conte input{
+    width: 70px;
+    padding: 5px;
+}
+
+.AdminStoreProductUpdate .right form label textarea{
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    margin-top: 5px;
+    outline: none;
+    background-color: transparent;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+}
+
+.AdminStoreProductUpdate .right form label .edit{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    outline: none;
+    background-color: transparent;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+    color: white;
+}
+
+.AdminStoreProductUpdate .right form label input{
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    outline: none;
+    background-color: transparent;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+    color: white;
+}
+.AdminStoreProductUpdate .right form input[type="submit"]{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    margin-top: 15px;
+    outline: none;
+    background-color: #ff6969;
+    /* box-shadow: 0px 0px 8px #212224; */
+    border: 3px solid #ff6969;
+    border-radius: 5px;
+    color: white;
+    text-transform: capitalize;
+    color: white;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+@media screen and (max-width:750px) {
+    .AdminStoreProductUpdate .right form .Fgroup label{
+        width: 49%;
+    }
+}
+@media screen and (max-width:685px) {
+    .AdminStoreProductUpdate .right form .Fgroup{
+        flex-direction: column;
+    }
+    .AdminStoreProductUpdate .right form .Fgroup label{
+        width: 100%;
+        /* margin: 8px auto; */
+    }
+}
+@media screen and (max-width:400px) {
+    .AdminStoreProductUpdate .top h2{
+        width: 100%;
+    }
+   
+    .AdminStoreProductUpdate .right form .Fgroup label .conte input{
+        width: 60px;
+        padding: 3px 1px;
+        margin: 5px 2px;
+    }
+    .AdminStoreProductUpdate .right form .Fgroup label .conte{
+        flex-wrap: wrap;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width:400px) {
+    .AdminStoreProductUpdate{
+        margin-top: 80px;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    .AdminStoreProductUpdate .midele{
+        flex-direction: column;
+    }
+    .AdminStoreProductUpdate .midele .right{
+        width: 100%;
+        margin-top: 10px;
+    }
+    .AdminStoreProductUpdate .midele .left{
+        width: 40%;
+    }
+}
+@media screen and (max-width:1000px){
+    .AdminStoreProductUpdate .midele .left{
+        display: block !important;
+        width: 300px;
+    }
+}
+@media screen and (max-width:400px){
+    .AdminStoreProductUpdate{
+        margin-top: 10px;
+    }
+    .AdminStoreProductUpdate .midele .left .top{
+        flex-direction: row !important;
+    }
+}

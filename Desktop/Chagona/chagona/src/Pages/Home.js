@@ -15,6 +15,7 @@ import { shuffle } from "lodash";
 import { ChevronUp } from "react-feather";
 import InfiniteCarousel from "../components/ScrollingDivs/ScrollingDivs";
 import "./styles.css";
+import { useSelector } from "react-redux";
 
 function Home() {
   const BackendUrl = process.env.REACT_APP_Backend_Url;
@@ -23,6 +24,9 @@ function Home() {
   const [allCategories, setAllCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const DATA_Products = useSelector((state) => state.products.data);
+  const DATA_Types = useSelector((state) => state.products.types);
+  const DATA_Categories = useSelector((state) => state.products.categories);
   function getRandomElements(array) {
     const shuffledArray = shuffle(array);
     return shuffledArray.slice(0, 10);
@@ -37,35 +41,28 @@ function Home() {
   }
   useEffect(() => {
     axios
-      .get(`${BackendUrl}/getAllType`)
-      .then((types) => {
-        setAllTypes(types.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    axios
       .get(`${BackendUrl}/getAllCategories`)
       .then((Categories) => {
         setAllCategories(Categories.data.data);
+        // console.log(Categories.data.data);
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
       });
 
-    axios
-      .get(`${BackendUrl}/products`)
-      .then((Categories) => {
-        setAllProducts(Categories.data.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-      });
+    // axios
+    //   .get(`${BackendUrl}/products`)
+    //   .then((Categories) => {
+    setAllProducts(DATA_Products);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error.response.data.message);
+    //     });
+    setAllTypes(DATA_Types);
   }, []);
-  const clefElectronique = allCategories
-    ? allCategories.find((item) => item.name === "électroniques")
+  const clefElectronique = DATA_Categories
+    ? DATA_Categories.find((item) => item.name === "électroniques")
     : null;
 
   // Gestionnaire pour faire défiler vers le haut de la page
@@ -100,13 +97,13 @@ function Home() {
     <div className="home">
       <LoadingIndicator loading={loading}>
         <HomeTop />
-        <HeaderOne categories={allCategories} />
+        <HeaderOne categories={DATA_Categories} />
         <InfiniteCarousel
           param="Bienvenue sur notre plateforme de commerce électronique locale ! Achetez
         des produits locaux de qualité."
           direction="left"
         />
-        <Presentation categories={allCategories} />
+        <Presentation categories={DATA_Categories} />
         {/* <InfiniteCarousel
           param="Habou227 sur games haute de Produits de Unique Sélection une Explorez !"
           direction="right"
@@ -116,14 +113,14 @@ function Home() {
           direction="right"
         />
         <ConteProduits
-          products={getRandomElementss(allProducts, 6)}
+          products={getRandomElementss(DATA_Products, 6)}
           // name={"homes & femmes"}
         />
         {/* <ProductOne allProducts={allProducts} /> */}
         <ConteProduits
           products={getRandomElementsSix(
-            allProducts.filter((item) =>
-              allTypes.some(
+            DATA_Products.filter((item) =>
+              DATA_Types.some(
                 (type) =>
                   type.clefCategories === clefElectronique?._id &&
                   item.ClefType === type._id
@@ -134,8 +131,8 @@ function Home() {
         />
         <ProductsSli
           products={getRandomElements(
-            allProducts.filter((item) =>
-              allTypes.some(
+            DATA_Products.filter((item) =>
+              DATA_Types.some(
                 (type) =>
                   type.clefCategories === clefElectronique?._id &&
                   item.ClefType === type._id
@@ -145,15 +142,15 @@ function Home() {
           name={"électroniques"}
         />
 
-        <Galeries products={allProducts} />
+        <Galeries products={DATA_Products} />
 
-        {allCategories?.map((param, index) => {
+        {DATA_Categories.map((param, index) => {
           if (
             getRandomElements(
-              allProducts.filter(
+              DATA_Products.filter(
                 (item) =>
                   item.ClefType ===
-                  allTypes.find((i) => i.clefCategories === param._id)?._id
+                  DATA_Types.find((i) => i.clefCategories === param._id)?._id
               )
             ).length > 0 &&
             param._id !== clefElectronique?._id
@@ -162,8 +159,8 @@ function Home() {
               <div key={index}>
                 <ConteProduits
                   products={getRandomElementsSix(
-                    allProducts.filter((item) =>
-                      allTypes.some(
+                    DATA_Products.filter((item) =>
+                      DATA_Types.some(
                         (type) =>
                           type.clefCategories === param?._id &&
                           item.ClefType === type._id
@@ -174,8 +171,8 @@ function Home() {
                 />
                 <ProductsSli
                   products={getRandomElements(
-                    allProducts.filter((item) =>
-                      allTypes.some(
+                    DATA_Products.filter((item) =>
+                      DATA_Types.some(
                         (type) =>
                           type.clefCategories === param?._id &&
                           item.ClefType === type._id
@@ -189,7 +186,7 @@ function Home() {
           else return null;
         })}
         <Footer scroll={scrollToTop} />
-        <Navbar />
+        <Navbar fromHom={true} />
       </LoadingIndicator>
 
       {showButton && (

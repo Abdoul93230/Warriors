@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./SearchTwo.css";
 import {
   ChevronLeft,
@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { animateScroll as scroll } from "react-scroll";
 import LoadingIndicator from "../../Pages/LoadingIndicator ";
 import axios from "axios";
+import { useSelector } from "react-redux";
 const BackendUrl = process.env.REACT_APP_Backend_Url;
 
 function SearchTwo({ op, allCategories, allProducts }) {
@@ -22,13 +23,15 @@ function SearchTwo({ op, allCategories, allProducts }) {
   const navigue = useNavigate();
   const [poppup, setPoppup] = useState(false);
   const [show, setShow] = useState(null);
-  const [allTypes, setAllTypes] = useState([]);
   const [products, setProduct] = useState([]);
   const [erreur, setErreur] = useState(null);
   const [searchName, setSearchName] = useState("");
   const [sh, setSh] = useState(true);
   const Categories = [];
   const [Brands, setBrands] = useState([]);
+  const DATA_Products = useSelector((state) => state.products.data);
+  const DATA_Types = useSelector((state) => state.products.types);
+  const DATA_Categories = useSelector((state) => state.products.categories);
 
   // Gestionnaire pour faire défiler vers le haut de la page
   const scrollToTop = () => {
@@ -38,25 +41,43 @@ function SearchTwo({ op, allCategories, allProducts }) {
     });
   };
 
+  const divRef = useRef(null);
+
+  const scrollToTop2 = () => {
+    const { current } = divRef;
+    if (current) {
+      current.scrollTop = 0;
+    }
+  };
+
+  // Gestionnaire d'effet pour contrôler l'affichage du bouton en fonction du défilement de la page
   // Gestionnaire d'effet pour contrôler l'affichage du bouton en fonction du défilement de la page
   useEffect(() => {
     const handleScroll = () => {
       // Afficher le bouton lorsque l'utilisateur a fait défiler plus de 50 pixels
-      if (window.scrollY > 50) {
-        setShowButton(true);
-      } else {
-        setShowButton(false);
+      const { current } = divRef;
+      if (current) {
+        if (current.scrollTop > 40) {
+          setShowButton(true);
+        } else {
+          setShowButton(false);
+        }
       }
     };
 
-    // Ajouter un écouteur d'événement de défilement
-    window.addEventListener("scroll", handleScroll);
+    // Ajouter un écouteur d'événement de défilement à la div si elle existe
+    const { current } = divRef;
+    if (current) {
+      current.addEventListener("scroll", handleScroll);
+    }
 
     // Nettoyage de l'écouteur d'événement lorsque le composant est démonté
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      if (current) {
+        current.removeEventListener("scroll", handleScroll);
+      }
     };
-  }, []);
+  });
 
   const searchProductByName = () => {
     if (searchName.length <= 1) {
@@ -82,17 +103,8 @@ function SearchTwo({ op, allCategories, allProducts }) {
 
   useEffect(() => {
     if (!show) {
-      setShow(allCategories[0]);
+      setShow(DATA_Categories[0]);
     }
-
-    axios
-      .get(`${BackendUrl}/getAllType`)
-      .then((types) => {
-        setAllTypes(types.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }, [show]);
 
   useEffect(() => {
@@ -158,14 +170,11 @@ function SearchTwo({ op, allCategories, allProducts }) {
       ? sizes
       : [];
 
-  const shuffledProducts = allProducts
-    .filter((item) =>
-      allTypes.some(
-        (type) =>
-          type.clefCategories === show?._id && item.ClefType === type._id
-      )
+  const shuffledProducts = DATA_Products.filter((item) =>
+    DATA_Types.some(
+      (type) => type.clefCategories === show?._id && item.ClefType === type._id
     )
-    .sort(() => Math.random() - 0.5); // Mélange les produits du tableau
+  ).sort(() => Math.random() - 0.5); // Mélange les produits du tableau
 
   function generateRandomNumber() {
     const min = 3;
@@ -192,6 +201,7 @@ function SearchTwo({ op, allCategories, allProducts }) {
               onSubmit={(e) => {
                 e.preventDefault();
                 searchProductByName();
+                scrollToTop2();
               }}
             >
               <input
@@ -211,10 +221,10 @@ function SearchTwo({ op, allCategories, allProducts }) {
 
           <div className="right">
             <ul>
-              {allCategories?.map((param, index) => {
-                // if (index > 3) {
-                //   return null;
-                // }
+              {DATA_Categories?.map((param, index) => {
+                if (index > 6 || param.name === "tous") {
+                  return null;
+                }
                 return (
                   <li
                     key={index}
@@ -222,6 +232,7 @@ function SearchTwo({ op, allCategories, allProducts }) {
                       setShow(param);
                       setSh(true);
                       setErreur(null);
+                      scrollToTop2();
                     }}
                   >
                     {param.name}
@@ -233,9 +244,9 @@ function SearchTwo({ op, allCategories, allProducts }) {
         </div>
 
         <LoadingIndicator loading={loading1}>
-          <div className="bottom">
+          <div className="bottom" ref={divRef}>
             {erreur && !products ? (
-              <h2 style={{ fontSize: 10, width: "100%", marginTop: -15 }}>
+              <h2 style={{ fontSize: 10, width: "100%", marginTop: 3 }}>
                 {erreur}
               </h2>
             ) : (
@@ -251,9 +262,11 @@ function SearchTwo({ op, allCategories, allProducts }) {
                     >
                       <img src={param.image1} alt="loading" />
 
-                      <h6 style={{ fontSize: 12 }}>{param.name}</h6>
+                      <h6 style={{ fontSize: 12 }}>
+                        {param.name.slice(0, 10)}...
+                      </h6>
                       <h5>
-                        $ {param.prixPromo ? param.prixPromo : param.prix}
+                        f {param.prixPromo ? param.prixPromo : param.prix}
                       </h5>
                       <span>
                         <Star style={{ width: "13px" }} />{" "}
@@ -271,9 +284,11 @@ function SearchTwo({ op, allCategories, allProducts }) {
                     >
                       <img src={param.image1} alt="loading" />
 
-                      <h6 style={{ fontSize: 12 }}>{param.name}</h6>
+                      <h6 style={{ fontSize: 12 }}>
+                        {param.name.slice(0, 10)}...
+                      </h6>
                       <h5>
-                        $ {param.prixPromo ? param.prixPromo : param.prix}
+                        f {param.prixPromo ? param.prixPromo : param.prix}
                       </h5>
                       <span>
                         <Star style={{ width: "13px" }} />{" "}
@@ -283,6 +298,9 @@ function SearchTwo({ op, allCategories, allProducts }) {
                   );
                 })}
           </div>
+          {/* <button onClick={scrollToTop2} style={{ marginTop: "-50px" }}>
+            Remonter en haut
+          </button> */}
         </LoadingIndicator>
 
         {/* filtre */}
@@ -331,7 +349,7 @@ function SearchTwo({ op, allCategories, allProducts }) {
                     return <li key={index}>{param}</li>;
                   })
                 ) : choix === "category" ? (
-                  allCategories.map((param, index) => {
+                  DATA_Categories.map((param, index) => {
                     return <li key={index}>{param.name}</li>;
                   })
                 ) : (
@@ -345,7 +363,7 @@ function SearchTwo({ op, allCategories, allProducts }) {
         )}
 
         {showButton && (
-          <button onClick={scrollToTop} className="scroll-to-top-button">
+          <button onClick={scrollToTop2} className="scroll-to-top-button">
             <ChevronUp className="i" />
           </button>
         )}

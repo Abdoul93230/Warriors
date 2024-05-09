@@ -97,15 +97,15 @@ function ProductsSli({ products, name }) {
                     </Link>
                   </div>
                   <div className="bottom">
-                    <h5>{param.name.slice(0, 20)}...</h5>
+                    <h5>{param.name.slice(0, 9)}...</h5>
 
                     {param.prixPromo > 0 ? (
                       <>
-                        <h6>${param.prix}</h6>
-                        <h4>${param.prixPromo}</h4>
+                        <h6>f {param.prix}</h6>
+                        <h4>f {param.prixPromo}</h4>
                       </>
                     ) : (
-                      <h4>${param.prix}</h4>
+                      <h4>f {param.prix}</h4>
                     )}
                   </div>
                 </div>

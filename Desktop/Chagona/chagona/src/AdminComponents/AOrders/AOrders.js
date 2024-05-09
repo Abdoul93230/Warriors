@@ -4,7 +4,8 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
-import image from "../../Images/sac2.png";
+// import image from "../../Images/sac2.png";
+import image from "../../Images/icon_user.png";
 import { useEffect } from "react";
 const BackendUrl = process.env.REACT_APP_Backend_Url;
 
@@ -118,21 +119,21 @@ function AOrders() {
                     <td>
                       {
                         allUsers?.find((item) => item._id === param.clefUser)
-                          .email
+                          ?.email
                       }
                     </td>
                     <td>
                       {
                         allAddress?.find(
                           (prof) => prof.clefUser === param.clefUser
-                        ).numero
+                        )?.numero
                       }
                     </td>
                     <td>
                       {
                         allAddress?.find(
                           (prof) => prof.clefUser === param.clefUser
-                        ).quartier
+                        )?.quartier
                       }
                     </td>
                     <td>{param.statusPayment}</td>

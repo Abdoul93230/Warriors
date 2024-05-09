@@ -22,9 +22,10 @@ import {
 } from "react-feather";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 
 const BackendUrl = process.env.REACT_APP_Backend_Url;
-function ProductDet({ product }) {
+function ProductDet() {
   const params = useParams();
   const [poppup, setPoppup] = useState(false);
   const [poppup2, setPoppup2] = useState(false);
@@ -40,6 +41,9 @@ function ProductDet({ product }) {
   const [option, setOption] = useState("Details");
   const [loading, setLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem("userEcomme"));
+  const DATA_Types = useSelector((state) => state.products.types);
+  const DATA_Categories = useSelector((state) => state.products.categories);
+  const DATA_Products = useSelector((state) => state.products.data);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -108,6 +112,38 @@ function ProductDet({ product }) {
     }
   };
 
+  const handleChatButtonClick = (
+    productName,
+    productLink,
+    phoneNumber,
+    productImageURL
+  ) => {
+    // Vérification des données du produit et du numéro de téléphone
+    if (!productName || !productLink || !phoneNumber) {
+      console.error(
+        "Les informations du produit et le numéro de téléphone sont requis."
+      );
+      return;
+    }
+
+    // Création du message pré-rempli avec les informations du produit
+    let message = `Bonjour, je suis intéressé(e) par le produit ${productName}. Voici le lien : ${productLink}`;
+
+    // Si une URL d'image est fournie, l'ajouter au message
+    if (productImageURL) {
+      message += `\n\n${productImageURL}`;
+    }
+
+    // Encodage du message pour l'URL
+    const encodedMessage = encodeURIComponent(message);
+
+    // Création de l'URL WhatsApp avec le numéro de téléphone et le message pré-rempli
+    const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    // Ouvrir WhatsApp dans une nouvelle fenêtre ou un nouvel onglet
+    window.open(whatsappURL, "_blank");
+  };
+
   const [produitsL, setProduitsL] = useState(0);
   function goBack() {
     window.history.back();
@@ -154,23 +190,23 @@ function ProductDet({ product }) {
         console.log(error);
       });
 
-    axios
-      .get(`${BackendUrl}/getAllCategories`)
-      .then((Categories) => {
-        setAllCategories(Categories.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // axios
+    //   .get(`${BackendUrl}/getAllCategories`)
+    //   .then((Categories) => {
+    setAllCategories(DATA_Categories);
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
 
-    axios
-      .get(`${BackendUrl}/products`)
-      .then((Categories) => {
-        setAllProducts(Categories.data.data);
-      })
-      .catch((error) => {
-        console.log(error.response.data.message);
-      });
+    // axios
+    //   .get(`${BackendUrl}/products`)
+    //   .then((Categories) => {
+    setAllProducts(DATA_Products);
+    // })
+    // .catch((error) => {
+    //   console.log(error.response.data.message);
+    // });
   }, []);
 
   const envoyer = () => {
@@ -291,7 +327,7 @@ function ProductDet({ product }) {
     const updatedProducts = [
       ...existingProducts,
       {
-        ...product,
+        ...VP,
         colors: [color], // Ajouter la couleur sélectionnée comme tableau
         sizes: [taille], // Ajouter la taille sélectionnée comme tableau
         quantity: 1,
@@ -320,14 +356,10 @@ function ProductDet({ product }) {
     : null;
 
   useEffect(() => {
-    axios
-      .get(`${BackendUrl}/getAllType`)
-      .then((types) => {
-        setAllTypes(types.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // axios
+    //   .get(`${BackendUrl}/getAllType`)
+    //   .then((types) => {
+    setAllTypes(DATA_Types);
 
     axios
       .get(`${BackendUrl}/getAllCommenteProduitById/${params.id}`)
@@ -380,6 +412,39 @@ function ProductDet({ product }) {
     // Utilisez la fonction de partage ici avec l'URL actuelle
     shareProductViaWhatsApp(VP?.name ?? "nom", currentURL, VP?.image1);
   };
+  const Discuite = () => {
+    const currentURL = window.location.href;
+    // Utilisez la fonction de partage ici avec l'URL actuelle
+    handleChatButtonClick(
+      VP?.name ?? "nom",
+      currentURL,
+      22787727501,
+      VP?.image1
+    );
+  };
+
+  const setBorder = (index) => {
+    const cls = document.getElementsByClassName("setBorder");
+    for (let i = 0; i < cls.length; i++) {
+      if (i === index) {
+        if (!cls[i].classList.contains("active"))
+          cls[i].classList.add("active");
+      } else {
+        cls[i].classList.remove("active");
+      }
+    }
+  };
+  const setBorderT = (index) => {
+    const cls = document.getElementsByClassName("setBorderT");
+    for (let i = 0; i < cls.length; i++) {
+      if (i === index) {
+        if (!cls[i].classList.contains("active"))
+          cls[i].classList.add("active");
+      } else {
+        cls[i].classList.remove("active");
+      }
+    }
+  };
 
   const OP =
     option === "Details" ? (
@@ -400,8 +465,9 @@ function ProductDet({ product }) {
               <h2>Livraison</h2>
               <p>
                 {VP?.prixLivraison
-                  ? `${VP?.prixLivraison}f (Niamey)`
-                  : `750F (Niamey)`}
+                  ? `${VP?.prixLivraison && VP?.prixLivraison > 0}f (Niamey)`
+                  : // : `750F (Niamey)`
+                    "offerte(Niamey)"}
               </p>
             </td>
             <td style={{ textAlign: "right" }}>
@@ -428,6 +494,7 @@ function ProductDet({ product }) {
                         onClick={() => {
                           setColor(param);
                           setNbrCol(+index + 1);
+                          setBorder(index);
                         }}
                       >
                         <img
@@ -436,6 +503,7 @@ function ProductDet({ product }) {
                             height: "100%",
                             objectFit: "contain",
                           }}
+                          className="setBorder"
                           src={param}
                           alt="loading"
                         />
@@ -471,7 +539,14 @@ function ProductDet({ product }) {
               <div className="siz">
                 {VP?.taille[0].split(",").map((param, index) => {
                   return (
-                    <span key={index} onClick={() => setTaille(param)}>
+                    <span
+                      className="setBorderT"
+                      key={index}
+                      onClick={() => {
+                        setTaille(param);
+                        setBorderT(index);
+                      }}
+                    >
                       {param}
                     </span>
                   );
@@ -506,7 +581,7 @@ function ProductDet({ product }) {
         {VP?.pictures.length !== 0 ? (
           <div className="ImgPlus">
             {VP?.pictures.map((param, index) => {
-              return <img alt="loading" src={param} />;
+              return <img key={index} alt="loading" src={param} />;
             })}
           </div>
         ) : (
@@ -638,7 +713,7 @@ function ProductDet({ product }) {
                   </>
                 ) : (
                   <h5>
-                    ${VP?.prix}{" "}
+                    Cfa {VP?.prix}{" "}
                     <span>
                       <Star style={{ width: "12px" }} />
                       4.9
@@ -654,13 +729,55 @@ function ProductDet({ product }) {
           <div className="midel carousel-container">
             <Slider {...settings}>
               <div className="slide">
-                <img src={VP?.image1} alt="loading" />
+                <div
+                  style={{
+                    backgroundImage: `url(${VP?.image1})`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    height: "100%", // Ajustez la hauteur selon vos besoins
+                    width: "100%", // Ajustez la largeur selon vos besoins
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#ff9696", // Couleur du texte, ajustez selon vos besoins
+                  }}
+                ></div>
+                {/* <img src={VP?.image1} alt="loading" /> */}
               </div>
               <div className="slide">
-                <img src={VP?.image2} alt="loading" />
+                {/* <img src={VP?.image2} alt="loading" /> */}
+                <div
+                  style={{
+                    backgroundImage: `url(${VP?.image2})`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    height: "100%", // Ajustez la hauteur selon vos besoins
+                    width: "100%", // Ajustez la largeur selon vos besoins
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#ff9696", // Couleur du texte, ajustez selon vos besoins
+                  }}
+                ></div>
               </div>
               <div className="slide">
-                <img src={VP?.image3} alt="loading" />
+                {/* <img src={VP?.image3} alt="loading" /> */}
+                <div
+                  style={{
+                    backgroundImage: `url(${VP?.image3})`,
+                    backgroundSize: "cover",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "center",
+                    height: "100%", // Ajustez la hauteur selon vos besoins
+                    width: "100%", // Ajustez la largeur selon vos besoins
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "#ff9696", // Couleur du texte, ajustez selon vos besoins
+                  }}
+                ></div>
               </div>
             </Slider>
           </div>
@@ -705,6 +822,12 @@ function ProductDet({ product }) {
               SHARE THIS{" "}
               <span>
                 <ChevronUp />
+              </span>
+            </button>
+            <button className="btn2" onClick={Discuite}>
+              discutez en{" "}
+              <span>
+                <ChevronRight />
               </span>
             </button>
             <button className="btn2" onClick={AddProduct}>

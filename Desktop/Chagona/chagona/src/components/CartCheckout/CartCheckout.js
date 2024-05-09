@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./CartCheckout.css";
 import { ChevronRight, X, CreditCard, Minus, Plus } from "react-feather";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { handleAlert, handleAlertwar } from "../../App";
 import LoadingIndicator from "../../Pages/LoadingIndicator ";
 const BackendUrl = process.env.REACT_APP_Backend_Url;
 
@@ -18,7 +17,8 @@ function CartCheckout({ op }) {
   const [codePro, setCodPro] = useState("");
   const [codeValide, setCodeValide] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  const location = useLocation();
+  const [allPayment, setAllPayment] = useState([]);
   const [poppup, setPoppup] = useState(false);
   const a = JSON.parse(localStorage.getItem(`userEcomme`));
   const [nom, setNom] = useState("");
@@ -31,30 +31,7 @@ function CartCheckout({ op }) {
 
   const [produits, setProduits] = useState(null);
 
-  const handleAlert = (message) => {
-    toast.success(`${message} !`, {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
-  const handleAlertwar = (message) => {
-    toast.warn(`${message} !`, {
-      position: toast.POSITION.TOP_RIGHT,
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-  };
-
+  // console.log("rdraaa", a);
   useEffect(() => {
     const local = localStorage.getItem("panier");
 
@@ -62,6 +39,21 @@ function CartCheckout({ op }) {
       setProduits(JSON.parse(local));
     }
   }, []);
+
+  function generateUniqueID() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0"); // Ajoute un zéro au début si le mois est < 10
+    const day = String(now.getDate()).padStart(2, "0"); // Ajoute un zéro au début si le jour est < 10
+    const hours = String(now.getHours()).padStart(2, "0"); // Ajoute un zéro au début si l'heure est < 10
+    const minutes = String(now.getMinutes()).padStart(2, "0"); // Ajoute un zéro au début si la minute est < 10
+    const seconds = String(now.getSeconds()).padStart(2, "0"); // Ajoute un zéro au début si la seconde est < 10
+
+    // Concatène les différentes parties pour former l'identifiant unique
+    const uniqueID = `${year}${month}${day}${hours}${minutes}${seconds}`;
+
+    return uniqueID;
+  }
 
   useEffect(() => {
     axios
@@ -179,18 +171,24 @@ function CartCheckout({ op }) {
 
   const Plasser = () => {
     const local = localStorage.getItem("panier");
+    setLoading(true);
     if (JSON.parse(local).length === 0) {
       handleAlertwar("Aucun produit n'est selectionner.");
+      setLoading(false);
       return;
     }
     if (phone.length <= 0) {
-      navigue("/More/shipping_address");
+      setLoading(false);
+      navigue("/More/shipping_address?fromCart=true");
       return;
     }
     if (choix.length <= 0) {
-      navigue("/More/payment_method");
+      setLoading(false);
+      navigue("/More/payment_method?fromCart=true");
+
       return;
     }
+
     if (local) {
       const pane = JSON.parse(local);
       let prod = [];
@@ -216,28 +214,125 @@ function CartCheckout({ op }) {
       }
 
       // console.log(data);
+      if (choix.length > 0) {
+        const uniqueID = generateUniqueID();
+        const dataToSend = {
+          name: a?.name,
+          currency: "XOF",
+          country: "NE",
+          total: total ? total : "",
+          transaction_id: uniqueID,
+          choix: choix,
+          numeroCard: numeroCard,
+          phone: numero,
+        };
+        data.reference = uniqueID;
 
-      axios
-        .post(`${BackendUrl}/createCommande`, data)
-        .then((res) => {
-          // alert(res.data.message);
-          localStorage.removeItem("panier");
-          if (codeValide) {
-            if (codeValide.isValide) {
+        if (
+          choix === "Visa" ||
+          choix === "Master Card" ||
+          choix === "Mobile Money"
+        ) {
+          axios
+            .post(`${BackendUrl}/payments`, dataToSend)
+            .then((response) => {
+              const ref = response.data.data.reference;
+              alert("success");
               axios
-                .put(`${BackendUrl}/updateCodePromo`, {
-                  codePromoId: codeValide._id,
-                  isValide: false,
+                .get(`${BackendUrl}/payments/`)
+                .then((res) => {
+                  setAllPayment(res.data.data);
+
+                  if (
+                    res.data.data.find((item) => item.reference === ref)
+                      .status != "Failed"
+                    // ||
+                    // res.data.data.find((item) => item.reference === ref)
+                    //   .status != "Initiated"
+                  ) {
+                    axios
+                      .post(`${BackendUrl}/createCommande`, data)
+                      .then((resp) => {
+                        // alert(resp.data.message);
+                        setLoading(false);
+                        localStorage.removeItem("panier");
+                        if (codeValide) {
+                          if (codeValide.isValide) {
+                            axios
+                              .put(`${BackendUrl}/updateCodePromo`, {
+                                codePromoId: codeValide._id,
+                                isValide: false,
+                              })
+                              .then(() => {
+                                // console.log("fait")
+                              })
+                              .catch((error) => console.log(error));
+                          }
+                        }
+                        op("trois");
+                      })
+                      .catch((error) => {
+                        setLoading(false);
+                        console.log("errrr", error);
+                      });
+                    console.log("Réponse de l'API:", response);
+                  } else {
+                    setLoading(false);
+                    handleAlertwar(
+                      "le payment na pas pu etre effectuer veuiller ressayer !"
+                    );
+                    return;
+                  }
                 })
-                .then(() => {
-                  // console.log("fait")
-                })
-                .catch((error) => console.log(error));
-            }
-          }
-          op("trois");
-        })
-        .catch((error) => console.log("errrr", error));
+                .catch((error) => {
+                  setLoading(false);
+                  console.log(error);
+                });
+            })
+            .catch((error) => {
+              setLoading(false);
+              console.log(
+                "Erreur lors de la requête:",
+                error.response ? error.response.data : error.message,
+                error
+              );
+            });
+        } else if (choix === "Payment a domicile") {
+          axios
+            .post(`${BackendUrl}/createCommande`, data)
+            .then((res) => {
+              // alert(res.data.message);
+              setLoading(false);
+              localStorage.removeItem("panier");
+              if (codeValide) {
+                if (codeValide.isValide) {
+                  axios
+                    .put(`${BackendUrl}/updateCodePromo`, {
+                      codePromoId: codeValide._id,
+                      isValide: false,
+                    })
+                    .then(() => {
+                      setLoading(false);
+                      // console.log("fait")
+                    })
+                    .catch((error) => {
+                      setLoading(false);
+                      console.log(error);
+                    });
+                }
+              }
+              op("trois");
+            })
+            .catch((error) => {
+              setLoading(false);
+              console.log("errrr", error);
+            });
+        }
+      } else {
+        setLoading(false);
+        alert("les infos du payment ne sont pas encore mis");
+        return;
+      }
     }
   };
 
@@ -247,7 +342,10 @@ function CartCheckout({ op }) {
       <LoadingIndicator loading={loading}>
         <div className="top">
           <X
-            onClick={() => op("un")}
+            onClick={() => {
+              op("un");
+              navigue("/Cart");
+            }}
             style={{ width: "40px", height: "40px" }}
           />
         </div>
@@ -255,7 +353,7 @@ function CartCheckout({ op }) {
         <h5>Shipping Address</h5>
 
         <div className="ul">
-          <ul onClick={() => navigue("/More/shipping_address")}>
+          <ul onClick={() => navigue(`/More/shipping_address?fromCart=true`)}>
             <li>{nom}</li>
             <li>{region}</li>
             <li>{Quartier}</li>
@@ -275,7 +373,7 @@ function CartCheckout({ op }) {
 
         <div
           className="payment"
-          onClick={() => navigue("/More/payment_method")}
+          onClick={() => navigue("/More/payment_method?fromCart=true")}
         >
           <div className="left">
             <h4>payment method</h4>
@@ -324,7 +422,7 @@ function CartCheckout({ op }) {
                     {allProducts?.find((item) => item._id === param.id).name}
                   </h4>
                   <h6>
-                    ${" "}
+                    cfa{" "}
                     {allProducts?.find((item) => item._id === param.id)
                       .prixPromo > 0
                       ? allProducts?.find((item) => item._id === param.id)
@@ -359,7 +457,7 @@ function CartCheckout({ op }) {
         <div className="place">
           <div className="left">
             <h4>Total</h4>
-            <h3>${total} F</h3>
+            <h3>cfa{total} F</h3>
             {codeValide ? (
               <h5 style={{ marginTop: -5 }}>
                 reduction: {codeValide.prixReduiction} f
@@ -404,7 +502,6 @@ function CartCheckout({ op }) {
         ) : (
           <></>
         )}
-        <ToastContainer />
       </LoadingIndicator>
     </div>
   );

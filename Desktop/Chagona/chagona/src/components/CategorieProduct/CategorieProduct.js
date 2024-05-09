@@ -11,26 +11,35 @@ import ConteProduits from "../ConteProduits/ConteProduits";
 import axios from "axios";
 import LoadingIndicator from "../../Pages/LoadingIndicator ";
 import { shuffle } from "lodash";
-const BackendUrl = process.env.REACT_APP_Backend_Url;
+import { useSelector } from "react-redux";
+// const BackendUrl = process.env.REACT_APP_Backend_Url;
 
 function CategorieProduct() {
   function goBack() {
     window.history.back();
   }
 
-  const [allTypes, setAllTypes] = useState([]);
+  // const [allTypes, setAllTypes] = useState([]);
   const [Allcommente, setAllCommente] = useState([]);
   const [choix, setChoix] = useState("Home");
   const params = useParams();
   const navigue = useNavigate();
   const [allPub, setAllPub] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [allProducts, setAllProducts] = useState([]);
+  // const [allProducts, setAllProducts] = useState([]);
   const [Ptp, setPtp] = useState([]);
   const [pt2, setPt2] = useState([]);
   const [ptAll, setPtAll] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
-
+  const DATA_Products = useSelector((state) => state.products.data);
+  const DATA_Types = useSelector((state) => state.products.types);
+  const DATA_Categories = useSelector((state) => state.products.categories);
+  const DATA_Commentes = useSelector(
+    (state) => state.products.products_Commentes
+  );
+  const DATA_Products_pubs = useSelector(
+    (state) => state.products.products_Pubs
+  );
   let Pub =
     allPub?.filter(
       (item) =>
@@ -44,143 +53,138 @@ function CategorieProduct() {
   }
 
   useEffect(() => {
-    axios
-      .get(`${BackendUrl}/productPubget`)
-      .then((pub) => {
-        if (pub.data.length > 0) {
-          setAllPub(pub.data);
-        } else {
-          setAllPub(null);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+    // axios
+    //   .get(`${BackendUrl}/productPubget`)
+    //   .then((pub) => {
+    if (DATA_Products_pubs.length > 0) {
+      setAllPub(DATA_Products_pubs);
+    } else {
+      setAllPub(null);
+    }
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
 
-    axios
-      .get(`${BackendUrl}/getAllCategories`)
-      .then((Categories) => {
-        setAllCategories(Categories.data.data);
+    // axios
+    //   .get(`${BackendUrl}/getAllCategories`)
+    //   .then((Categories) => {
+    setAllCategories(DATA_Categories);
 
-        const ClefCate = Categories.data.data
-          ? Categories.data.data.find((item) => item.name === params?.Cat)
-          : null;
+    const ClefCate = DATA_Categories
+      ? DATA_Categories.find((item) => item.name === params?.Cat)
+      : null;
 
-        axios
-          .get(`${BackendUrl}/getAllType`)
-          .then((types) => {
-            setAllTypes(types.data.data);
+    // axios
+    //   .get(`${BackendUrl}/getAllType`)
+    //   .then((types) => {
+    // setAllTypes(DATA_Types);
 
-            const ClefTypes = types.data.data
-              ? types.data.data.find((item) => item.name === params?.product)
-              : null;
+    const ClefTypes = DATA_Types
+      ? DATA_Types.find((item) => item.name === params?.product)
+      : null;
 
-            axios
-              .get(`${BackendUrl}/products`)
-              .then((prod) => {
-                setAllProducts(prod.data.data);
+    // axios;
+    // .get(`${BackendUrl}/products`)
+    // .then((prod) => {
+    // setAllProducts(DATA_Products);
 
-                const filteredProductsPromo = prod.data.data.filter((item) =>
-                  types.data.data.some(
-                    (type) =>
-                      type.clefCategories === ClefCate?._id &&
-                      item.ClefType === type._id &&
-                      item.prixPromo > 0
-                  )
-                );
+    const filteredProductsPromo = DATA_Products.filter((item) =>
+      DATA_Types.some(
+        (type) =>
+          type.clefCategories === ClefCate?._id &&
+          item.ClefType === type._id &&
+          item.prixPromo > 0
+      )
+    );
 
-                const filteredProductsTop30 = prod.data.data
-                  .slice(0, 30)
-                  .filter((item) =>
-                    types.data.data.some(
-                      (type) =>
-                        type.clefCategories === ClefCate?._id &&
-                        item.ClefType === type._id
-                    )
-                  );
+    const filteredProductsTop30 = DATA_Products.slice(0, 30).filter((item) =>
+      DATA_Types.some(
+        (type) =>
+          type.clefCategories === ClefCate?._id && item.ClefType === type._id
+      )
+    );
 
-                if (params.product) {
-                  setPtAll(
-                    prod.data.data.filter((item) =>
-                      types.data.data.some(
-                        (type) =>
-                          type.name === params.product &&
-                          item.ClefType === type._id
-                      )
-                    )
-                  );
+    if (params.product) {
+      setPtAll(
+        DATA_Products.filter((item) =>
+          DATA_Types.some(
+            (type) => type.name === params.product && item.ClefType === type._id
+          )
+        )
+      );
 
-                  setPtp(
-                    getRandomElementsSix(
-                      prod.data.data.filter((item) =>
-                        types.data.data.some(
-                          (type) =>
-                            type.name === params.product &&
-                            item.ClefType === type._id &&
-                            item.prixPromo > 0
-                        )
-                      ),
-                      6
-                    )
-                  );
-                  setPt2(
-                    getRandomElementsSix(
-                      prod.data.data
-                        .slice(0, 30)
-                        .filter((item) =>
-                          types.data.data.some(
-                            (type) =>
-                              type.name === params.product &&
-                              item.ClefType === type._id
-                          )
-                        ),
-                      6
-                    )
-                  );
-                } else {
-                  setPtAll(
-                    prod.data.data.filter((item) =>
-                      types.data.data.some(
-                        (type) =>
-                          type.clefCategories === ClefCate?._id &&
-                          item.ClefType === type._id
-                      )
-                    )
-                  );
-                  setPtp(getRandomElementsSix(filteredProductsPromo, 6));
-                  setPt2(getRandomElementsSix(filteredProductsTop30, 6));
-                }
-              })
-              .catch((error) => console.log(error));
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      setPtp(
+        getRandomElementsSix(
+          DATA_Products.filter((item) =>
+            DATA_Types.some(
+              (type) =>
+                type.name === params.product &&
+                item.ClefType === type._id &&
+                item.prixPromo > 0
+            )
+          ),
+          6
+        )
+      );
+      setPt2(
+        getRandomElementsSix(
+          DATA_Products.slice(0, 30).filter((item) =>
+            DATA_Types.some(
+              (type) =>
+                type.name === params.product && item.ClefType === type._id
+            )
+          ),
+          6
+        )
+      );
+    } else {
+      setPtAll(
+        DATA_Products.filter((item) =>
+          DATA_Types.some(
+            (type) =>
+              type.clefCategories === ClefCate?._id &&
+              item.ClefType === type._id
+          )
+        )
+      );
+      setPtp(getRandomElementsSix(filteredProductsPromo, 6));
+      setPt2(getRandomElementsSix(filteredProductsTop30, 6));
+    }
+    // })
+    // .catch((error) => console.log(error));
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
+    setAllCommente(DATA_Commentes);
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(`${BackendUrl}/getAllCommenteProduit`)
-      .then((coments) => {
-        setAllCommente(coments.data);
-        setLoading(false);
-        // console.log(coments.data);
-      })
-      .catch((error) => {
-        setLoading(false);
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${BackendUrl}/getAllCommenteProduit`)
+  //     .then((coments) => {
+  //       setLoading(false);
+  //       // console.log(coments.data);
+  //     })
+  //     .catch((error) => {
+  //       setLoading(false);
+  //       console.log(error);
+  //     });
+  // }, []);
 
   const ClefCate = allCategories
     ? allCategories.find((item) => item.name === params?.Cat)
     : null;
-  const ClefTypes = allTypes
-    ? allTypes.find((item) => item.name === params?.product)
+  const ClefTypes = DATA_Types
+    ? DATA_Types.find((item) => item.name === params?.product)
     : null;
 
   const settings = {
@@ -218,8 +222,8 @@ function CategorieProduct() {
   //       9
   //     );
   const Home1 = getRandomElementsSix(
-    allProducts.filter((item) =>
-      allTypes.some(
+    DATA_Products.filter((item) =>
+      DATA_Types.some(
         (type) =>
           type.clefCategories === ClefCate?._id && item.ClefType === type._id
       )
@@ -243,8 +247,8 @@ function CategorieProduct() {
   //     );
 
   const Home2 = getRandomElementsSix(
-    allProducts.filter((item) =>
-      allTypes.some(
+    DATA_Products.filter((item) =>
+      DATA_Types.some(
         (type) =>
           type.clefCategories === ClefCate?._id && item.ClefType === type._id
       )
@@ -253,12 +257,12 @@ function CategorieProduct() {
   );
   const Pt1 = params.product
     ? getRandomElementsSix(
-        allProducts.filter((item) => item.ClefType === ClefTypes?._id ?? ""),
+        DATA_Products.filter((item) => item.ClefType === ClefTypes?._id ?? ""),
         6
       )
     : getRandomElementsSix(
-        allProducts.filter((item) =>
-          allTypes.some(
+        DATA_Products.filter((item) =>
+          DATA_Types.some(
             (type) =>
               type.clefCategories === ClefCate?._id &&
               item.ClefType === type._id
@@ -317,7 +321,7 @@ function CategorieProduct() {
                 >
                   <img src={param.image1} alt="loading" />
                   <h5>{param.name.slice(0, 20)}</h5>
-                  <h6>${param.prix}</h6>
+                  <h6>f {param.prixPromo ? param.prixPromo : param.prix}</h6>
                 </div>
               );
             })}
@@ -332,45 +336,45 @@ function CategorieProduct() {
       <div className="prod" style={{ marginBottom: "30px" }}>
         <div className="options">
           <ul>
-            {allTypes
-              ?.filter((para) => para.clefCategories === ClefCate?._id)
-              .map((param, index) => {
-                if (index > 4) {
-                  return null;
-                }
-                return (
-                  <li
-                    key={index}
-                    onClick={() => {
-                      navigue(`/Categorie/${params.Cat}/${param.name}`);
-                      setPt2(
-                        getRandomElementsSix(
-                          allProducts
-                            .slice(0, 30)
-                            .filter((item) => item.ClefType === param?._id),
-                          6
-                        )
-                      );
-                      setPtp(
-                        getRandomElementsSix(
-                          allProducts.filter(
-                            (item) =>
-                              item.ClefType === param?._id && item.prixPromo > 0
-                          ),
-                          6
-                        )
-                      );
-                      setPtAll(
-                        allProducts.filter(
+            {DATA_Types?.filter(
+              (para) => para.clefCategories === ClefCate?._id
+            ).map((param, index) => {
+              if (index > 4) {
+                return null;
+              }
+              return (
+                <li
+                  key={index}
+                  onClick={() => {
+                    navigue(`/Categorie/${params.Cat}/${param.name}`);
+                    setPt2(
+                      getRandomElementsSix(
+                        DATA_Products.slice(0, 30).filter(
                           (item) => item.ClefType === param?._id
-                        )
-                      );
-                    }}
-                  >
-                    {param.name}
-                  </li>
-                );
-              })}
+                        ),
+                        6
+                      )
+                    );
+                    setPtp(
+                      getRandomElementsSix(
+                        DATA_Products.filter(
+                          (item) =>
+                            item.ClefType === param?._id && item.prixPromo > 0
+                        ),
+                        6
+                      )
+                    );
+                    setPtAll(
+                      DATA_Products.filter(
+                        (item) => item.ClefType === param?._id
+                      )
+                    );
+                  }}
+                >
+                  {param.name}
+                </li>
+              );
+            })}
           </ul>
         </div>
         <div className="promo">
@@ -425,7 +429,7 @@ function CategorieProduct() {
             __html: VP?.description,
           }}</p> */}
                     <h6>
-                      $ <s>{param.prix}</s> <span>{param.prixPromo}</span>
+                      f <s>{param.prix}</s> <span>{param.prixPromo}</span>
                     </h6>
                     <span className="p">
                       -{" "}
@@ -463,7 +467,7 @@ function CategorieProduct() {
                     <h5 style={{ textAlign: "left" }}>
                       {param.name.slice(0, 18)}...
                     </h5>
-                    <h6>${param.prix}</h6>
+                    <h6>f {param.prixPromo ? param.prixPromo : param.prix}</h6>
                   </div>
                 );
               })}
@@ -518,7 +522,7 @@ function CategorieProduct() {
                     <img
                       className="img"
                       src={
-                        allProducts?.find(
+                        DATA_Products?.find(
                           (item) => item._id === param.clefProduct
                         ).image1
                       }
@@ -527,7 +531,7 @@ function CategorieProduct() {
                     <img
                       className="img"
                       src={
-                        allProducts?.find(
+                        DATA_Products?.find(
                           (item) => item._id === param.clefProduct
                         ).image2
                       }
@@ -536,7 +540,7 @@ function CategorieProduct() {
                     <img
                       className="img"
                       src={
-                        allProducts?.find(
+                        DATA_Products?.find(
                           (item) => item._id === param.clefProduct
                         ).image3
                       }

@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import io from "socket.io-client";
 import "./Inbox.css";
-import image1 from "../../Images/sac2.png";
+// import image1 from "../../Images/sac2.png";
+import image1 from "../../Images/icon_user.png";
 import { ChevronRight, Search, Delete } from "react-feather";
 import axios from "axios";
+import ReactQuill from "react-quill";
 const BackendUrl = process.env.REACT_APP_Backend_Url;
 const socket = io(BackendUrl);
 function Inbox() {
@@ -24,6 +26,10 @@ function Inbox() {
         messageContainerRef.current.scrollHeight;
     }
   }, [allMessage]);
+
+  const handleMessageChange = (value) => {
+    setMessage(value);
+  };
   useEffect(() => {
     axios
       .get(`${BackendUrl}/getUsers`)
@@ -231,6 +237,8 @@ function Inbox() {
                           ? allProfiles?.find(
                               (prof) => prof.clefUser === param._id
                             )?.numero
+                          : param?.phoneNumber
+                          ? param?.phoneNumber
                           : "none"}{" "}
                         <span> Bonjour...</span>
                       </p>
@@ -281,6 +289,8 @@ function Inbox() {
                           ? allProfiles?.find(
                               (prof) => prof.clefUser === param._id
                             )?.numero
+                          : param?.phoneNumber
+                          ? param?.phoneNumber
                           : "none"}{" "}
                         <span> Bonjour...</span>
                       </p>
@@ -317,6 +327,8 @@ function Inbox() {
                       ? allProfiles?.find(
                           (prof) => prof.clefUser === istrue?._id
                         )?.numero
+                      : istrue?.phoneNumber
+                      ? istrue?.phoneNumber
                       : "none"}{" "}
                     {/* <span> Bonjour...</span> */}
                   </p>
@@ -332,7 +344,11 @@ function Inbox() {
                 {allMessage?.map((param, index) => {
                   return (
                     <div className="carde" key={index}>
-                      <p>{param.message}</p>
+                      <div
+                        dangerouslySetInnerHTML={{ __html: param?.message }}
+                      ></div>
+                      {/* <p>{param.message}</p> */}
+
                       {
                         <Delete
                           className="del"
@@ -346,13 +362,22 @@ function Inbox() {
               </div>
               <div className="bottom">
                 <form onSubmit={envoyer}>
-                  <textarea
+                  {/* <textarea
                     placeholder="Tape here"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                   />
                   <button>
                     <ChevronRight onClick={envoyer} />
+                  </button> */}
+                  <ReactQuill
+                    value={message}
+                    onChange={handleMessageChange}
+                    placeholder="Écrivez votre message ici..."
+                    className="custom-editor" // Ajoutez une classe CSS personnalisée ici
+                  />
+                  <button className="button" onClick={envoyer}>
+                    Envoyer
                   </button>
                 </form>
               </div>

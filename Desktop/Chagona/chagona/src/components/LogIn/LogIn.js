@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { ChevronRight, Menu, PhoneCall, User } from "react-feather";
-import { useNavigate } from "react-router-dom";
+import { ChevronRight, Lock, PhoneCall, User } from "react-feather";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./LogIn.css";
 import { ToastContainer, toast } from "react-toastify";
@@ -36,7 +36,7 @@ function LogIn({ chg, creer }) {
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isloading, setIsloading] = useState(false);
-
+  const location = useLocation();
   const regexMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const regexPhone = /^[0-9]{8,}$/;
 
@@ -108,17 +108,41 @@ function LogIn({ chg, creer }) {
         handleAlert(response.data.message);
         setIsloading(false);
         chg("oui");
-        navigue("/Home");
+        const fromCartParam = new URLSearchParams(location.search).get(
+          "fromCart"
+        );
+        const fromCartProfile = new URLSearchParams(location.search).get(
+          "fromProfile"
+        );
+        const fromCartMore = new URLSearchParams(location.search).get(
+          "fromMore"
+        );
+        const fromCartMessages = new URLSearchParams(location.search).get(
+          "fromMessages"
+        );
+        if (fromCartParam) {
+          navigue("/Cart?fromCart=true");
+        } else if (fromCartProfile) {
+          navigue("/Profile");
+        } else if (fromCartMore) {
+          navigue("/More");
+        } else if (fromCartMessages) {
+          navigue("/Messages");
+        } else {
+          navigue("/Home");
+        }
         localStorage.setItem(`userEcomme`, JSON.stringify(response.data));
       } else {
         handleError(response.data.message);
       }
     } catch (error) {
+      console.log(error);
       handleError(
         error.response && error.response.status === 400
           ? error.response.data.message
           : "Une erreur s'est produite lors de la connexion. Veuillez réessayer."
       );
+      // console.log(error);
     }
   };
 
@@ -142,37 +166,39 @@ function LogIn({ chg, creer }) {
       ) : (
         <div className="LogIn">
           <ul>
+            <div className="gMP">
+              <li>
+                <div className="left">
+                  <User />
+                </div>
+                <div className="right">
+                  <label>Email/UserEmail</label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={chargeEmail}
+                    placeholder="janedoe123@email.com"
+                  />
+                </div>
+              </li>
+              or
+              <li>
+                <div className="left">
+                  <PhoneCall />
+                </div>
+                <div className="right">
+                  <label>Phone Number</label>
+                  <input
+                    type="number"
+                    placeholder="+227 87727501"
+                    onChange={chargePhoneNumber}
+                  />
+                </div>
+              </li>
+            </div>
             <li>
               <div className="left">
-                <User />
-              </div>
-              <div className="right">
-                <label>Email/UserEmail</label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={chargeEmail}
-                  placeholder="janedoe123@email.com"
-                />
-              </div>
-            </li>
-            or
-            <li>
-              <div className="left">
-                <PhoneCall />
-              </div>
-              <div className="right">
-                <label>Phone Number</label>
-                <input
-                  type="number"
-                  placeholder="+227 87727501"
-                  onChange={chargePhoneNumber}
-                />
-              </div>
-            </li>
-            <li>
-              <div className="left">
-                <Menu />
+                <Lock />
               </div>
               <div className="right">
                 <label>Password</label>

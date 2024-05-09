@@ -2,11 +2,12 @@ import React from "react";
 import "./Carts.css";
 import { MessageCircle, ChevronRight, ShoppingCart } from "react-feather";
 import Navbar from "../NaveBar/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import LoadingIndicator from "../../Pages/LoadingIndicator ";
+import { useSelector } from "react-redux";
 
 const BackendUrl = process.env.REACT_APP_Backend_Url;
 function Carts({ op }) {
@@ -21,39 +22,49 @@ function Carts({ op }) {
   const [Vide, setVide] = useState(null);
   const [allMessage, setAllMessage] = useState([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  // const DATA_Products = useSelector((state) => state.products.data);
   const a = JSON.parse(localStorage.getItem(`userEcomme`));
 
-  const calculateTotalPrice = () => {
-    let total = 0;
+  // const calculateTotalPrice = () => {
+  //   let total = 0;
 
-    produits?.forEach((param) => {
-      const price = param.prixPromo > 0 ? param.prixPromo : param.prix;
-      total += price * param.quantity;
-    });
+  //   produits?.forEach((param) => {
+  //     const price = param.prixPromo > 0 ? param.prixPromo : param.prix;
+  //     total += price * param.quantity;
+  //   });
 
-    return total;
-  };
+  //   return total;
+  // };
 
   // let prix = calculateTotalPrice();
-  let prix;
+  // let prix;
   let price;
   let totalPrice;
   let pric = 0;
   let total = 0;
 
   useEffect(() => {
-    axios
-      .get(`${BackendUrl}/getUserMessagesByClefUser/${a.id}`)
-      .then((res) => {
-        setAllMessage(
-          res.data.filter(
-            (item) => item.lusUser == false && item.provenance === false
-          )
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const fromCartParam = new URLSearchParams(location.search).get("fromCart");
+    if (fromCartParam === "true") {
+      op(`deux`);
+      return;
+    } else {
+    }
+    if (a) {
+      axios
+        .get(`${BackendUrl}/getUserMessagesByClefUser/${a.id}`)
+        .then((res) => {
+          setAllMessage(
+            res.data.filter(
+              (item) => item.lusUser == false && item.provenance === false
+            )
+          );
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }, []);
 
   useEffect(() => {
@@ -151,14 +162,14 @@ function Carts({ op }) {
                     ?.prixPromo > 0 ? (
                     <>
                       <h4 className="Lh">
-                        ${" "}
+                        cfa{" "}
                         {
                           allProducts?.find((item) => item._id === param.id)
                             ?.prix
                         }
                       </h4>
                       <h5>
-                        $${" "}
+                        cfa{" "}
                         {
                           allProducts?.find((item) => item._id === param.id)
                             ?.prixPromo
@@ -168,7 +179,7 @@ function Carts({ op }) {
                   ) : (
                     <>
                       <h5>
-                        ${" "}
+                        cfa{" "}
                         {
                           allProducts?.find((item) => item._id === param.id)
                             ?.prix
@@ -177,9 +188,9 @@ function Carts({ op }) {
                     </>
                   )}
                   <button>
-                    <span onClick={() => decrementQuantity(index)}>-</span>
+                    <span onClick={() => decrementQuantity(index)}> - </span>
                     {param.quantity}
-                    <span onClick={() => incrementQuantity(index)}>+</span>
+                    <span onClick={() => incrementQuantity(index)}> + </span>
                   </button>
                   <h5 style={{ display: "inline-block", fontWeight: "bold" }}>
                     TT {totalPrice} f
@@ -203,11 +214,19 @@ function Carts({ op }) {
           <div className="bottom">
             <div className="left">
               <h2>Total</h2>
-              <h3>${total}</h3>
+              <h3>cfa {total}</h3>
               <h4>Free Bomestic shipping</h4>
             </div>
             <div className="right">
-              <button onClick={() => op("deux")}>
+              <button
+                onClick={() => {
+                  if (a) {
+                    op("deux");
+                  } else {
+                    navigue("/connection?fromCart=true");
+                  }
+                }}
+              >
                 Checkout{" "}
                 <span>
                   <ChevronRight />

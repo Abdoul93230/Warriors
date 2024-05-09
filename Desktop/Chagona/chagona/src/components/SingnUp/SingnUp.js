@@ -3,12 +3,12 @@ import "./SingnUp.css";
 import axios from "axios";
 import {
   ChevronRight,
-  Menu,
+  Lock,
   MessageSquare,
   PhoneCall,
   User,
 } from "react-feather";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const BackendUrl = process.env.REACT_APP_Backend_Url;
@@ -39,7 +39,10 @@ function SingnUp({ chg }) {
   };
   const navigue = useNavigate();
   const [isloading, setIsloading] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [whatsapp, setWhatsapp] = useState(true);
   const regexPhone = /^[0-9]{8,}$/;
+  const location = useLocation();
   //////////////// verification des information et creation de l'utilisateur  ///////////////////////////
 
   const validateCredentials = () => {
@@ -86,6 +89,7 @@ function SingnUp({ chg }) {
           password: password,
           email: email,
           phoneNumber,
+          whatsapp,
         })
         .then((response) => {
           axios
@@ -146,7 +150,29 @@ function SingnUp({ chg }) {
                 handleAlert(user.data.message);
                 setIsloading(false);
                 chg("oui");
-                navigue("/Home");
+                const fromCartParam = new URLSearchParams(location.search).get(
+                  "fromCart"
+                );
+                const fromCartProfile = new URLSearchParams(
+                  location.search
+                ).get("fromProfile");
+                const fromCartMore = new URLSearchParams(location.search).get(
+                  "fromMore"
+                );
+                const fromCartMessages = new URLSearchParams(
+                  location.search
+                ).get("fromMessages");
+                if (fromCartParam) {
+                  navigue("/Cart?fromCart=true");
+                } else if (fromCartProfile) {
+                  navigue("/Profile");
+                } else if (fromCartMore) {
+                  navigue("/More");
+                } else if (fromCartMessages) {
+                  navigue("/Messages");
+                } else {
+                  navigue("/Home");
+                }
                 localStorage.setItem(`userEcomme`, JSON.stringify(user.data));
               } else {
                 handleAlertwar(user.data.message);
@@ -206,25 +232,6 @@ function SingnUp({ chg }) {
           <ul>
             <li>
               <div className="left">
-                <MessageSquare />
-              </div>
-              <div className="right">
-                <label>Email</label>
-                <input type="email" placeholder="janedoe123@email.com" />
-              </div>
-            </li>
-            or
-            <li>
-              <div className="left">
-                <PhoneCall />
-              </div>
-              <div className="right">
-                <label>Phone Number</label>
-                <input type="number" placeholder="+227 87727501" />
-              </div>
-            </li>
-            <li>
-              <div className="left">
                 <User />
               </div>
               <div className="right">
@@ -232,15 +239,74 @@ function SingnUp({ chg }) {
                 <input type="text" placeholder="janedoe12345" />
               </div>
             </li>
+            <div className="gMP">
+              <li>
+                <div className="left">
+                  <MessageSquare />
+                </div>
+                <div className="right">
+                  <label>Email</label>
+                  <input type="email" placeholder="janedoe123@email.com" />
+                </div>
+              </li>
+              or
+              <li>
+                <div className="left">
+                  <PhoneCall />
+                </div>
+                <div className="right">
+                  <label>Phone Number</label>
+                  <input
+                    type="number"
+                    placeholder="+227 87727501"
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+              </li>
+            </div>
+
             <li>
               <div className="left">
-                <Menu />
+                <Lock />
               </div>
               <div className="right">
                 <label>Password</label>
                 <input type="password" placeholder="*******************" />
               </div>
             </li>
+            {phone.length === 8 || phone.length === 11 ? (
+              <label
+                style={{
+                  // border: "2px solid crimson",
+                  width: "100%",
+                  margin: "5px auto",
+                  fontWeight: "bold",
+                  color: "#515C6F",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                htmlFor="idW"
+              >
+                WhatsApp Groupe :{" "}
+                <input
+                  id="idW"
+                  type="checkbox"
+                  checked={whatsapp === true ? true : false}
+                  onChange={(e) => {
+                    setWhatsapp(!whatsapp);
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    marginLeft: "10px",
+                    width: "20px",
+                    height: "20px",
+                  }}
+                />
+              </label>
+            ) : (
+              <></>
+            )}
           </ul>
 
           <button onClick={validateCredentials}>

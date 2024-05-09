@@ -23,7 +23,7 @@ function AProductUpdat() {
   const [imagePlus, setImagePlus] = useState(null);
   const [typeProduit, setTypeProduit] = useState("");
   const [descrip, setDescrip] = useState("");
-  const [cate, setCate] = useState("");
+  const [prixF, setPrixF] = useState(null);
   const [prixLivraison, setPrixLivraison] = useState(0);
 
   function goBack() {
@@ -101,6 +101,7 @@ function AProductUpdat() {
 
       setName(res.data.data.name);
       setPrix(res.data.data.prix);
+      setPrixF(res.data.data?.prixf);
       setQuantite(res.data.data.quantite);
       setMarque(res.data.data.marque);
       setPriPromo(res.data.data.prixPromo);
@@ -175,10 +176,10 @@ function AProductUpdat() {
       handleAlertwar("le type_de_Produits n'est pas valide");
       return;
     }
-    if (marque?.length < 2) {
-      handleAlertwar("la marque n'est pas valide");
-      return;
-    }
+    // if (marque?.length < 2) {
+    //   handleAlertwar("la marque n'est pas valide");
+    //   return;
+    // }
     if (fournisseure?.length < 2) {
       handleAlertwar("le fournisseur n'est pas valide");
       return;
@@ -198,6 +199,7 @@ function AProductUpdat() {
 
     formData.append("quantite", quantite);
     formData.append("prix", prix);
+    formData.append("prixF", prixF ? prixF : 0);
     formData.append("prixPromo", prixPromo);
     formData.append("description", descrip);
     formData.append("taille", tails);
@@ -507,6 +509,7 @@ function AProductUpdat() {
                 </tr>
                 <tr>
                   <th>Marque</th>
+                  <th>PrixFounisseur</th>
                 </tr>
                 <tr>
                   <td>
@@ -514,6 +517,13 @@ function AProductUpdat() {
                       type="text"
                       defaultValue={marque}
                       onChange={(e) => setMarque(e.target.value)}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="text"
+                      defaultValue={prixF}
+                      onChange={(e) => setPrixF(e.target.value)}
                     />
                   </td>
                 </tr>
